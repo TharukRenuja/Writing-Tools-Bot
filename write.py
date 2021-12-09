@@ -173,4 +173,4 @@ async def cb_data(bot, update):
             reply_markup=START_BUTTON
         )
         
-@write.run()
+write.run()
