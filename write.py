@@ -1,6 +1,7 @@
 import pyrogram
 from pyrogram import Client, filters
 from pyrogram.types import User, Message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 import os
 import requests
 import requests as r
