@@ -3,3 +3,4 @@ tgcrypto
 requests
 htmlwebshot
 Pillow
+telegraph
