@@ -45,7 +45,7 @@ START_BUTTON = InlineKeyboardMarkup(
                 )
 
 
-@Client(pattern="write ?(/*)")
+@Client.on_message(filters.command(["write"]) & filters.private)
 async def writer(e):
     if e.reply_to:
         reply = await e.get_reply_message()
