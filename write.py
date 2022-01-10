@@ -9,7 +9,7 @@ from htmlwebshot import WebShot
 from PIL import Image, ImageDraw, ImageFont
 from telegraph import upload_file as uf
 
-write = Client(
+Client = Client(
     "Writing-Tools",
     bot_token=os.environ["BOT_TOKEN"],
     api_id=int(os.environ["API_ID"]),
@@ -45,7 +45,7 @@ START_BUTTON = InlineKeyboardMarkup(
                 )
 
 
-@write(pattern="write ?(/*)")
+@Client(pattern="write ?(/*)")
 async def writer(e):
     if e.reply_to:
         reply = await e.get_reply_message()
@@ -70,7 +70,7 @@ async def writer(e):
     os.remove(file)
     await k.delete()
         
-@write.on_message(filters.command(["start"]) & filters.private)
+@Client.on_message(filters.command(["start"]) & filters.private)
 async def start_private(bot, update):
     text = START_STRING.format(update.from_user.mention)
     reply_markup = START_BUTTON
@@ -81,7 +81,7 @@ async def start_private(bot, update):
         quote=True
     )
     
-@write.on_message(filters.command(["webshot"]) & filters.private)
+@Client.on_message(filters.command(["webshot"]) & filters.private)
 async def f2i(e):
     txt = e.pattern_match.group(1)
     if txt:
@@ -106,7 +106,7 @@ async def f2i(e):
     if os.path.exists(html):
         os.remove(html)
         
-@write.on_message(filters.command(["img2txt"]) & filters.private)
+@Client.on_message(filters.command(["img2txt"]) & filters.private)
 async def ocrify(ult):
     if not ult.is_reply:
         return await eor(ult, "`Reply to Photo...`")
@@ -131,7 +131,7 @@ async def ocrify(ult):
     trt = gr["ParsedResults"][0]["ParsedText"]
     await msg.edit(f"**🎉 IMG2TXT PORTAL\n\nRESULTS ~ ** `{trt}`")
     
-@write.on_message(filters.command(["help"]) & filters.private)
+@Client.on_message(filters.command(["help"]) & filters.private)
 async def start_private(bot, update):
     text = HELP_STRING.format(update.from_user.mention)
     reply_markup = START_BUTTON
@@ -142,7 +142,7 @@ async def start_private(bot, update):
         quote=True
     )
     
-@write.on_message(filters.command(["about"]) & filters.private)
+@Client.on_message(filters.command(["about"]) & filters.private)
 async def start_private(bot, update):
     text = ABOUT_STRING.format(update.from_user.mention)
     reply_markup = START_BUTTON
@@ -153,7 +153,7 @@ async def start_private(bot, update):
         quote=True
     )    
     
-@write.on_callback_query()
+@Client.on_callback_query()
 async def cb_data(bot, update):  
     if update.data == "cbhelp":
         await update.message.edit_text(
@@ -174,4 +174,4 @@ async def cb_data(bot, update):
             reply_markup=START_BUTTON
         )
         
-write.run()
+Client.run()
