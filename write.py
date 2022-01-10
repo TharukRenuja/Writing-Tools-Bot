@@ -9,7 +9,7 @@ from htmlwebshot import WebShot
 from PIL import Image, ImageDraw, ImageFont
 from telegraph import upload_file as uf
 
-Client = write(
+write = Client(
     "Writing-Tools",
     bot_token=os.environ["BOT_TOKEN"],
     api_id=int(os.environ["API_ID"]),
