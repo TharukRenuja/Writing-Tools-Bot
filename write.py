@@ -158,7 +158,6 @@ async def cb_data(bot, update):
     if update.data == "cbhelp":
         await update.message.edit_text(
             text=HELP_STRING,
-            reply_markup=CLOSE_BUTTON,
             disable_web_page_preview=True
         )
     elif update.data == "cbabout":
